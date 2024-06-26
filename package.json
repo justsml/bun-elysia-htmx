@@ -13,6 +13,7 @@
   "dependencies": {
     "@elysiajs/html": "^1.0.2",
     "@elysiajs/static": "^1.0.3",
+    "@elysiajs/swagger": "^1.0.5",
     "elysia": "^1.0.25",
     "typescript": "^5.5.2"
   }

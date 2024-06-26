@@ -1,13 +1,16 @@
 import * as elements from "typed-html";
 import { Elysia } from "elysia";
 import { html } from "@elysiajs/html";
+import { swagger } from '@elysiajs/swagger'
 import { MovieApi } from "./MovieApi";
 import { Movie, MovieEdit, MovieList, NewMovie, Layout } from "./views";
 
 const { PORT = 8080 } = process.env;
 
 const app = new Elysia();
+
 app.use(html());
+app.use(swagger());
 
 app.get("/movies", () => {
   const movies = MovieApi.readAll();
