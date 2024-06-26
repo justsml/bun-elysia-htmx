@@ -7,13 +7,13 @@
     "start": "bun index.tsx"
   },
   "devDependencies": {
-    "bun-types": "latest",
+    "bun-types": "^1.1.17",
     "typed-html": "^3.0.1"
   },
   "dependencies": {
-    "@elysiajs/html": "^0.6.5",
-    "@elysiajs/static": "^0.6.0",
-    "elysia": "^0.6.23",
+    "@elysiajs/html": "^1.0.2",
+    "@elysiajs/static": "^1.0.3",
+    "elysia": "^1.0.25",
     "typescript": "^5.5.2"
   }
 }
