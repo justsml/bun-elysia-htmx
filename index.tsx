@@ -1,57 +1,48 @@
-import { Elysia } from "elysia"
-import { html } from "@elysiajs/html"
-import * as elements from "typed-html"
-import Layout from "./Layout"
-import MovieList from "./MovieList"
-import MovieEdit from "./MovieEdit"
-import NewMovie from "./NewMovie"
-import Movie from "./Movie"
+import { Elysia } from "elysia";
+import { html } from "@elysiajs/html";
+import * as elements from "typed-html";
+import { MovieApi } from "./MovieApi";
+import { Movie, MovieEdit, MovieList, NewMovie, Layout } from "./views";
 
-const movies = [
-  { title: "Inception", year: 2010 },
-  { title: "The dark Knight", year: 2009 },
-  { title: "Interstellar", year: 2014 },
-]
+const app = new Elysia();
+app.use(html());
 
-const app = new Elysia()
-app.use(html())
-
-app.post("/movies", ({ body }: any) => {
-  const newMovie = body
-  movies.push(newMovie)
-  return <Movie {...newMovie} id={movies.length - 1} />
-})
-
-app.get("/movies", ({ html }: any) =>
-  html(
+app.get("/movies", () => {
+  const movies = MovieApi.readAll();
+  return (
     <Layout>
       <MovieList movies={movies} />
       <h2>New movie</h2>
       <NewMovie />
     </Layout>
-  )
-)
+  );
+});
+
+app.post("/movies", ({ body }) => {
+  const movie = MovieApi.create(body);
+  return <Movie {...movie} />;
+});
+
 app.get("/movies/:id", ({ params }) => {
-  const id = Number(params.id)
-  return <Movie title={movies[id].title} year={movies[id].year} id={id} />
-})
+  const movie = MovieApi.read(Number(params.id));
+  return <Movie {...movie} />;
+});
 
 app.get("/movies/:id/edit", ({ params }) => {
-  const id = Number(params.id)
-  return <MovieEdit title={movies[id].title} year={movies[id].year} id={id} />
-})
+  const movie = MovieApi.read(Number(params.id));
+  return <MovieEdit {...movie} />;
+});
 
-app.put("/movies/:id", ({ body, params }: any) => {
-  const id = Number(params.id)
-  movies[id] = { ...movies[id], ...body }
-  return <Movie title={movies[id].title} year={movies[id].year} id={id} />
-})
+app.put("/movies/:id", ({ body, params }) => {
+  const movie = MovieApi.update(Number(params.id), body);
+  return <Movie {...movie} />;
+});
 
-app.delete("/movies/:id", ({ params }: any) => {
-  movies.splice(params.id, 1)
-  return null
-})
+app.delete("/movies/:id", ({ params }) => {
+  MovieApi.remove(Number(params.id));
+  return <li>Deleted</li>;
+});
 
 app.listen(8080, () => {
-  console.log(`[Elysia] Listening on port 8080`)
-})
+  console.log(`[Elysia] Listening on port http://0.0.0.0:8080`);
+});

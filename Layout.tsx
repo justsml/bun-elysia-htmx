@@ -1,6 +1,6 @@
 import * as elements from "typed-html"
 
-export default ({ children }: elements.Children) => (
+export const Layout = ({ children }: elements.Children) => (
   <html lang="en">
     <head>
       <meta charset="UTF-8" />
