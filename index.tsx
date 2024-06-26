@@ -4,6 +4,8 @@ import * as elements from "typed-html";
 import { MovieApi } from "./MovieApi";
 import { Movie, MovieEdit, MovieList, NewMovie, Layout } from "./views";
 
+const { PORT = 8080 } = process.env;
+
 const app = new Elysia();
 app.use(html());
 
@@ -43,6 +45,6 @@ app.delete("/movies/:id", ({ params }) => {
   return <li>Deleted</li>;
 });
 
-app.listen(8080, () => {
-  console.log(`[Elysia] Listening on port http://0.0.0.0:8080`);
+app.listen(Number(PORT), () => {
+  console.log(`[Elysia] Started http://0.0.0.0:${PORT}/movies`);
 });
