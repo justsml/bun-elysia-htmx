@@ -1,7 +1,7 @@
 import * as elements from "typed-html"
 import { IMovie } from "./MovieApi";
 
-export const Layout = ({ children }: elements.Children) => (
+export const Layout = ({ children }: elements.Attributes) => (
   <html lang="en">
     <head>
       <meta charset="UTF-8" />

@@ -1,6 +1,6 @@
+import * as elements from "typed-html";
 import { Elysia } from "elysia";
 import { html } from "@elysiajs/html";
-import * as elements from "typed-html";
 import { MovieApi } from "./MovieApi";
 import { Movie, MovieEdit, MovieList, NewMovie, Layout } from "./views";
 
